@@ -1,0 +1,1 @@
+nssm start ema_pos_integration

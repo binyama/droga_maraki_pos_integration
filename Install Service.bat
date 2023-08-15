@@ -1,0 +1,2 @@
+nssm remove ema_pos_integration confirm
+nssm install ema_pos_integration

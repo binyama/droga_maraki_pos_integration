@@ -54,7 +54,7 @@ def update_invoice_with_pos_data():
 def main():
     while True:
         update_invoice_with_pos_data()
-        time.sleep(helper.service_run_time)
+        time.sleep(int(helper.service_run_time))
 
 
 if __name__ == "__main__":
