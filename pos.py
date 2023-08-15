@@ -25,12 +25,12 @@ def update_invoice_with_pos_data():
 
         # Using find() to extract attributes
         # of the first instance of the tag
-        invoice_status = Bs_data.find_all('invoice_status')
+        invoice_status = Bs_data.find_all('Invoice_Response')
 
         for inv_status in invoice_status:
-            #printed = inv_status.find_all('printed')[0].text
+            # printed = inv_status.find_all('printed')[0].text
             reference_number = inv_status.find_all('Reference_Number')[0].text
-            #print_date = inv_status.find_all('print_date')[0].text
+            # print_date = inv_status.find_all('print_date')[0].text
             fs_no = inv_status.find_all('FS_Number')[0].text
 
             # search invoice number
@@ -41,10 +41,12 @@ def update_invoice_with_pos_data():
                                                     {'fields': ['id', 'name'], 'limit': 5})
             if account_move is not None:
                 # update the record
-                today = datetime.utcnow().strftime("%Y-%m-%d H%:M%:S%")
+                dt = datetime.utcnow()
+                today = dt.strftime("%Y-%m-%d %H:%M:%S")
                 status = helper.models.execute_kw(helper.odoo_db, helper.uid, helper.odoo_password, 'account.move',
                                                   'write', [[account_move[0]['id']], {'FSInvoiceNumber': fs_no,
-                                                                                      'FTimeStamp': today}])
+                                                                                      'FTimeStamp': today,
+                                                                                      'FPMachineID': 'BEB0049492'}])
 
                 if status:
                     # delete file
